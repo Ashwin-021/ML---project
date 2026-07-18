@@ -7,7 +7,6 @@ This repository contains my Machine Learning projects developed using Python and
 * Lead Conversion Prediction
 * Student Placement Prediction
 * Ecommerce Prediction
-* Customer Retention Prediction
 
 ## Technologies Used
 
