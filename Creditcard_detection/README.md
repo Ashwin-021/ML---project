@@ -1,192 +1,230 @@
-Credit Card Fraud Detection Using Random Forest
-📌 Project Overview
-This project implements a Machine Learning model for detecting fraudulent credit card transactions using the Random Forest Classifier.
+# 💳 Credit Card Fraud Detection Using Machine Learning
 
-The project covers the complete machine learning workflow:
+## 📌 Project Overview
 
-Loading the dataset
-Exploring the data
-Checking missing values
-Analyzing class distribution
-Preparing features and target variables
-Handling missing values
-Splitting the dataset into training and testing sets
-Training a Random Forest model
-Making predictions
-Evaluating model performance
-Visualizing the confusion matrix
-Identifying important features
-📊 Dataset
-The project uses the creditcard.csv dataset.
+This Machine Learning project detects fraudulent credit card transactions using the **Random Forest Classifier**. The model analyzes transaction details and predicts whether a transaction is genuine or fraudulent.
 
-The dataset contains:
+The main goal of this project is to identify suspicious transactions, reduce financial losses, and help improve fraud detection systems.
 
-5,974 rows
-31 columns
-30 input features
-1 target variable (Class)
-The target variable Class represents:
+## 🎯 Problem Statement
 
-Class	Meaning
-0	Genuine transaction
-1	Fraudulent transaction
-The dataset contains 13 missing values.
+Credit card fraud is a major challenge in the financial industry. Detecting fraudulent transactions accurately is important for protecting customers and financial institutions.
 
-Class Distribution
-The dataset is highly imbalanced:
+This project uses Machine Learning to classify transactions into two categories:
 
-Genuine transactions: 5,970
-Fraudulent transactions: 3
-Genuine: 99.9498%
-Fraud: 0.0502%
-🧾 Features
-The model uses the following 30 features:
+* **Class 0:** Genuine transaction
+* **Class 1:** Fraudulent transaction
 
-Time
-V1
-V2
-V3
-V4
-V5
-V6
-V7
-V8
-V9
-V10
-V11
-V12
-V13
-V14
-V15
-V16
-V17
-V18
-V19
-V20
-V21
-V22
-V23
-V24
-V25
-V26
-V27
-V28
-Amount
-The Class column is used as the target variable.
+## 🎯 Objectives
 
-🛠️ Technologies Used
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Scikit-learn
-Google Colab / Jupyter Notebook
-🔄 Machine Learning Workflow
-1. Import Libraries
-The project uses Pandas, NumPy, Seaborn, Matplotlib, and Scikit-learn libraries.
+* Analyze credit card transaction data.
+* Identify missing values and examine class distribution.
+* Prepare the dataset for Machine Learning.
+* Train a Random Forest classification model.
+* Predict fraudulent transactions.
+* Evaluate model performance using classification metrics.
+* Identify important features influencing predictions.
 
-2. Load Dataset
-The dataset is loaded using:
+## 📂 Project Structure
 
-df = pd.read_csv("/content/creditcard.csv")
-The notebook then displays the dataset shape, first few records, data information, missing values, and class distribution.
-
-3. Data Preprocessing
-Missing rows are removed using:
-
-df_clean = df.dropna()
-The features and target are then separated:
-
-X_clean = df_clean.drop("Class", axis=1)
-y_clean = df_clean["Class"]
-The data is divided into training and testing sets using an 80/20 split, with stratification and random_state=42.
-
-4. Train/Test Split
-The resulting datasets contain:
-
-Dataset	Shape
-Training data	(4778, 30)
-Testing data	(1195, 30)
-5. Model Training
-A Random Forest Classifier is used:
-
-RandomForestClassifier(
-    n_estimators=100,
-    class_weight="balanced_subsample",
-    random_state=42,
-    n_jobs=-1
-)
-The model is trained using the training dataset.
-
-6. Prediction
-The trained model generates:
-
-Predicted transaction classes
-Fraud probabilities
-y_pred = model.predict(X_test)
-y_prob = model.predict_proba(X_test)[:, 1]
-📈 Model Evaluation
-The model is evaluated using:
-
-Confusion Matrix
-Precision
-Recall
-F1-score
-ROC-AUC
-Classification Report
-The notebook generates the confusion matrix with Genuine and Fraud labels.
-
-Confusion Matrix
-The resulting confusion matrix is:
-
-[[1194    0]
- [   1    0]]
-This means that the test set contained 1 fraudulent transaction, which the model classified as genuine.
-
-⚠️ Important Observation
-The dataset is extremely imbalanced, containing only 3 fraudulent transactions out of 5,974 records.
-
-Because there is only one fraud case in the test set, metrics such as recall, precision, and F1-score should be interpreted carefully.
-
-A high ROC-AUC alone does not necessarily mean that the model is effective at detecting actual fraudulent transactions.
-
-📁 Project Structure
+```text
 Credit-Card-Fraud-Detection/
 │
-├── Task7_ML(1).ipynb
-├── creditcard.csv
+├── Dataset/
+│   └── creditcard.csv
+│
+├── Notebook/
+│   └── Creditcard_Notebook.ipynb
+│
+├── Output/
+│   ├── Confusion_Matrix.png
+│   ├── ROC_Curve.png
+│   └── Feature_Importance.png
+│
+├── actual_fraudulent_test_transactions.csv
 └── README.md
-▶️ How to Run
-Step 1: Install Required Libraries
-pip install pandas numpy seaborn matplotlib scikit-learn
-Step 2: Add the Dataset
-Place the dataset in the required location:
+```
 
-/content/creditcard.csv
-Step 3: Open the Notebook
-Open:
+*Note: Save the generated graphs in the `Output` folder if you want to include them in your GitHub repository. The fraud transaction CSV is generated when the notebook runs.*
 
-Task7_ML(1).ipynb
-in Google Colab or Jupyter Notebook.
+## 📊 Dataset Description
 
-Step 4: Run the Notebook
-Run all cells sequentially to:
+The dataset contains credit card transaction records with features describing transaction information.
 
-Load the dataset
-Explore the data
-Handle missing values
-Split the dataset
-Train the Random Forest model
-Generate predictions
-Evaluate the model
-Display the confusion matrix
-🎯 Conclusion
-This project demonstrates how a Random Forest Classifier can be applied to credit card fraud detection.
+Important columns include:
 
-The project also highlights an important challenge in fraud detection: severe class imbalance. Since fraudulent transactions are extremely rare compared with genuine transactions, model evaluation should focus carefully on fraud-specific metrics such as precision, recall, and F1-score, rather than relying only on overall performance measures.
+* **Time:** Time elapsed between transactions, as represented in the dataset.
+* **Amount:** Transaction amount.
+* **V1–V28:** Anonymized numerical features.
+* **Class:** Target variable indicating whether the transaction is genuine or fraudulent.
 
-👩‍💻 Project
-Machine Learning – Credit Card Fraud Detection
+### Target Variable
 
-Built using Python and Scikit-learn.
+| Class | Description            |
+| ----- | ---------------------- |
+| 0     | Genuine transaction    |
+| 1     | Fraudulent transaction |
+
+The dataset typically contains a highly imbalanced class distribution, with fraudulent transactions representing a small proportion of all transactions.
+
+## 🛠️ Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+* Jupyter Notebook / Google Colab
+
+## ⚙️ Project Workflow
+
+### 1. Data Loading
+
+Load the credit card dataset using Pandas and examine the first few records and dataset dimensions.
+
+### 2. Data Exploration
+
+* Inspect dataset information and column names.
+* Check for missing values.
+* Analyze the distribution of genuine and fraudulent transactions.
+* Calculate the class percentages.
+
+### 3. Data Preprocessing
+
+* Remove rows containing missing values.
+* Separate the input features from the target variable.
+* Split the dataset into training and testing sets.
+* Use stratified splitting to preserve the class distribution.
+
+### 4. Model Training
+
+Train a Random Forest Classifier with the following configuration:
+
+* Number of estimators: 100
+* Class weighting: `balanced_subsample`
+* Random state: 42
+* Parallel processing: Enabled
+
+Class weighting helps the model account for the imbalance between genuine and fraudulent transactions.
+
+### 5. Fraud Prediction
+
+The trained model predicts the transaction class and calculates the probability of fraud for each test transaction.
+
+### 6. Model Evaluation
+
+Evaluate the model using:
+
+* **Confusion Matrix:** Shows correct and incorrect predictions.
+* **Precision:** Measures how many transactions predicted as fraudulent are actually fraudulent.
+* **Recall:** Measures how many actual fraudulent transactions are detected.
+* **F1-Score:** Balances precision and recall.
+* **ROC-AUC Score:** Measures how well the model distinguishes between genuine and fraudulent transactions.
+* **Classification Report:** Provides precision, recall, F1-score, and support for each class.
+
+### 7. Feature Importance
+
+Identify the top 10 important features used by the Random Forest model and visualize their relative importance.
+
+### 8. Fraud Transaction Analysis
+
+* Extract actual fraudulent transactions from the test dataset.
+* Identify detected and missed fraud cases.
+* Save the actual fraudulent test transactions to a CSV file.
+
+## 📈 Visualizations
+
+The notebook generates the following visualizations:
+
+1. **Confusion Matrix:** Displays the classification results for genuine and fraudulent transactions.
+2. **ROC Curve:** Illustrates the model's ability to distinguish between the two classes across different thresholds.
+3. **Feature Importance Chart:** Displays the 10 most important input features.
+
+These visualizations help interpret model performance and understand the factors contributing to fraud predictions.
+
+## ▶️ How to Run the Project
+
+### Step 1: Clone the Repository
+
+```bash
+git clone <your-repository-url>
+cd Credit-Card-Fraud-Detection
+```
+
+### Step 2: Install the Required Libraries
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
+
+### Step 3: Place the Dataset
+
+Download `creditcard.csv` and place it in the appropriate folder.
+
+### Step 4: Open the Notebook
+
+Open `Creditcard_Notebook.ipynb` in Jupyter Notebook or Google Colab.
+
+### Step 5: Update the Dataset Path
+
+The notebook currently uses a Google Colab path:
+
+```python
+df = pd.read_csv("/content/creditcard.csv")
+```
+
+For a local project, update the path according to your folder structure. For example:
+
+```python
+df = pd.read_csv("Dataset/creditcard.csv")
+```
+
+### Step 6: Run All Cells
+
+Execute the notebook cells in order to preprocess the data, train the model, evaluate its performance, and generate the visualizations and fraud transaction report.
+
+## 📋 Expected Output
+
+After running the notebook, the project produces:
+
+* Dataset information and class distribution.
+* Training and testing data.
+* Predicted transaction classes and fraud probabilities.
+* Confusion matrix and classification report.
+* Precision, recall, F1-score, and ROC-AUC score.
+* Top 10 important features.
+* ROC curve visualization.
+* CSV file containing actual fraudulent transactions from the test set.
+
+*Actual evaluation scores depend on the dataset and model execution. Run the notebook to obtain the results.*
+
+## 🚀 Future Improvements
+
+* Experiment with other classification algorithms.
+* Apply additional techniques for imbalanced datasets, such as SMOTE.
+* Tune model hyperparameters to improve performance.
+* Compare models using precision, recall, F1-score, and ROC-AUC.
+* Develop a web application for real-time fraud prediction.
+* Explore deployment options for integrating fraud detection into financial systems.
+
+## ⚠️ Limitations
+
+* The dataset may contain highly imbalanced classes.
+* Anonymized features can make the results difficult to interpret.
+* Model predictions are not guaranteed to identify every fraudulent transaction.
+* The model requires further testing before use in real financial systems.
+
+## 👨‍💻 Conclusion
+
+This project demonstrates how Machine Learning can be applied to credit card fraud detection using a Random Forest Classifier. It includes data exploration, preprocessing, model training, fraud prediction, performance evaluation, and feature importance analysis.
+
+The project provides practical experience with Python, Pandas, data analysis, classification algorithms, and model evaluation.
+
+---
+
+**Project Type:** Machine Learning – Classification
+
+**Algorithm:** Random Forest Classifier
+
+**Language:** Python
